@@ -12,6 +12,8 @@ import os
 # 導入 random 模組
 import random
 import math
+import man
+import manstep
 from cherrypy.lib.static import serve_file
 # 導入 gear 模組
 #import gear
@@ -109,10 +111,13 @@ class Midterm(object):
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
         </head>
         <body>
-        <a href="spur">spur</a><br />
-        <a href="drawspur">drawspur</a><br />
-        <a href="fileuploadform">上傳檔案</a><br />
-        <a href="download_list">列出上傳檔案</a><br />
+        40223150起始頁面<br />
+        <a href="spur">齒輪參數輸入</a><br />
+        <a href="drawspur">2D齒輪繪製</a><br />
+        <a href="fileuploadform">檔案上傳頁面</a><br />
+        <a href="download_list">已上傳檔案</a><br />
+        <a href="man">樂高機器人自動組立</a><br />
+        <a href="manstep">樂高機器人單步組立</a><br />
         </body>
         </html>
         '''
@@ -381,7 +386,9 @@ class Midterm(object):
     <div class="prova"></div>
     <input type="button" onclick="$('.prova').axuploader('disable')" value="asd" />
     <input type="button" onclick="$('.prova').axuploader('enable')" value="ok" />
-    </section></body></html>
+    </section>
+    <br /><a href="index">回首頁</a><br />
+    </body></html>
     '''
     @cherrypy.expose
     def fileaxupload(self, *args, **kwargs):
@@ -471,7 +478,7 @@ class Midterm(object):
         else:
             outstring += "no data!"
         outstring += "<br /><br /><input type='submit' value='delete'><input type='reset' value='reset'></form>"
-
+        outstring += '<a href="index">回首頁</a><br />'
         return "<div class='container'><nav>"+ \
             "</nav><section><h1>Download List</h1>"+outstring+"<br/><br /></body></html>"
 class Download:
@@ -494,6 +501,8 @@ application_conf = {'/static':{
     
 root = Midterm()
 root.download = Download()
+root.man = man.MAN()
+root.manstep = manstep.MANSTEP()
 #root.gear = gear.Gear()
 
 if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
