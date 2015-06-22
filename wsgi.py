@@ -13,6 +13,8 @@ import os
 import random
 import math
 import man
+import gear
+import fingear
 import manstep
 from cherrypy.lib.static import serve_file
 # 導入 gear 模組
@@ -118,12 +120,14 @@ class Midterm(object):
         <a href="download_list">已上傳檔案</a><br />
         <a href="man">樂高機器人自動組立</a><br />
         <a href="manstep">樂高機器人單步組立</a><br />
+        <a href="fingear">期末齒輪</a><br />
         </body>
         </html>
         '''
         
         return outstring
-    @cherrypy.expose
+
+
     # N 為齒數, M 為模數, P 為壓力角
     def spur(self, N=20, M=5, P=15):
         outstring = '''
@@ -481,6 +485,8 @@ class Midterm(object):
         outstring += '<a href="index">回首頁</a><br />'
         return "<div class='container'><nav>"+ \
             "</nav><section><h1>Download List</h1>"+outstring+"<br/><br /></body></html>"
+
+
 class Download:
     @cherrypy.expose
     def index(self, filepath):
@@ -502,8 +508,12 @@ application_conf = {'/static':{
 root = Midterm()
 root.download = Download()
 root.man = man.MAN()
+root.fingear = fingear.gear()
+root.gear = gear.Gear()
 root.manstep = manstep.MANSTEP()
-#root.gear = gear.Gear()
+cherrypy.server.socket_port = 8091
+cherrypy.server.socket_host = '127.0.0.1'
+root.gear = gear.Gear()
 
 if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
     # 表示在 OpenSfhit 執行

@@ -27,7 +27,7 @@
 </v>
 </v>
 <v t="2014fall.20141212095015.1774" a="E"><vh>@path ./</vh>
-<v t="2014fall.20141212095015.1775" a="E"><vh>@clean wsgi.py</vh>
+<v t="2014fall.20141212095015.1775"><vh>@clean wsgi.py</vh>
 <v t="2014fall.20141212095015.1776"><vh>&lt;&lt;declarations&gt;&gt; (wsgi)</vh></v>
 <v t="office.20150504185643.1"><vh>downloadlist_access_list</vh></v>
 <v t="office.20150504185717.1"><vh>sizeof_fmt</vh></v>
@@ -46,6 +46,16 @@
 </v>
 <v t="office.20150504190303.1"><vh>class Download</vh>
 <v t="office.20150504190303.2"><vh>index</vh></v>
+</v>
+</v>
+<v t="2015.20150623005640.1" a="E"><vh>@clean fingear.py</vh>
+<v t="2015.20150623005701.1"><vh>fingear declarations</vh></v>
+<v t="2015.20150623005701.2" a="E"><vh>class gear</vh>
+<v t="2015.20150623005701.3"><vh>index</vh></v>
+<v t="2015.20150623010323.1"><vh>index2</vh></v>
+<v t=".20150623015952.1"><vh>dogear</vh></v>
+<v t=".20150623021441.1"><vh>dogears</vh></v>
+<v t="2015.20150623005701.6"><vh>menuLink</vh></v>
 </v>
 </v>
 <v t="office.20150504100507.1" a="E"><vh>@path static</vh>
@@ -100,8 +110,1407 @@
 <v t="amd.20150503173937.1"><vh>@edit pybean.py</vh></v>
 </v>
 </v>
+<v t=".20150622201357.1" a="E"><vh>Recovered Nodes</vh>
+<v t=".20150622201357.2"><vh>Recovered node "&lt;&lt;declarations&gt;&gt; (wsgi)" from @clean wsgi.py</vh>
+<v t=".20150622201357.3"><vh>old:&lt;&lt;declarations&gt;&gt; (wsgi)</vh></v>
+<v t=".20150622201357.4"><vh>new:&lt;&lt;declarations&gt;&gt; (wsgi)</vh></v>
+</v>
+<v t=".20150622201357.5"><vh>Recovered node "index" from @clean wsgi.py</vh>
+<v t=".20150622201357.6"><vh>old:index</vh></v>
+<v t=".20150622201357.7"><vh>new:index</vh></v>
+</v>
+<v t=".20150622201357.8"><vh>Recovered node "fileuploadform" from @clean wsgi.py</vh>
+<v t=".20150622201357.9"><vh>old:fileuploadform</vh></v>
+<v t=".20150622201357.10"><vh>new:fileuploadform</vh></v>
+</v>
+<v t=".20150622201357.11"><vh>Recovered node "download_list" from @clean wsgi.py</vh>
+<v t=".20150622201357.12"><vh>old:download_list</vh></v>
+<v t=".20150622201357.13"><vh>new:download_list</vh></v>
+</v>
+</v>
+<v t="2015.20150623005547.1" a="E"><vh>Recovered Nodes</vh>
+<v t="2015.20150623005547.2"><vh>Recovered node "&lt;&lt;declarations&gt;&gt; (wsgi)" from @clean wsgi.py</vh>
+<v t="2015.20150623005547.3"><vh>old:&lt;&lt;declarations&gt;&gt; (wsgi)</vh></v>
+<v t="2015.20150623005547.4"><vh>new:&lt;&lt;declarations&gt;&gt; (wsgi)</vh></v>
+</v>
+<v t="2015.20150623005547.5"><vh>Recovered node "spur" from @clean wsgi.py</vh>
+<v t="2015.20150623005547.6"><vh>old:spur</vh></v>
+<v t="2015.20150623005547.7"><vh>new:spur</vh></v>
+</v>
+<v t="2015.20150623005547.8"><vh>Recovered node "download_list" from @clean wsgi.py</vh>
+<v t="2015.20150623005547.9"><vh>old:download_list</vh></v>
+<v t="2015.20150623005547.10"><vh>new:download_list</vh></v>
+</v>
+</v>
+<v t=".20150623012806.1" a="E"><vh>Recovered Nodes</vh>
+<v t=".20150623012806.2"><vh>Recovered node "index" from @clean fingear.py</vh>
+<v t=".20150623012806.3"><vh>old:index</vh></v>
+<v t=".20150623012806.4"><vh>new:index</vh></v>
+</v>
+</v>
 </vnodes>
 <tnodes>
+<t tx=".20150622201357.1"></t>
+<t tx=".20150622201357.10">@cherrypy.expose
+def fileuploadform(self):
+    return '''&lt;h1&gt;file upload&lt;/h1&gt;
+&lt;script src="/static/jquery.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/axuploader.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script&gt;
+$(document).ready(function(){
+$('.prova').axuploader({url:'fileaxupload', allowExt:['jpg','png','gif','7z','pdf','zip','flv','stl','swf'],
+finish:function(x,files)
+    {
+        alert('All files have been uploaded: '+files);
+    },
+enable:true,
+remotePath:function(){
+return 'downloads/';
+}
+});
+});
+&lt;/script&gt;
+&lt;div class="prova"&gt;&lt;/div&gt;
+&lt;input type="button" onclick="$('.prova').axuploader('disable')" value="asd" /&gt;
+&lt;input type="button" onclick="$('.prova').axuploader('enable')" value="ok" /&gt;
+&lt;/section&gt;
+&lt;br /&gt;&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;
+&lt;/body&gt;&lt;/html&gt;
+'''
+</t>
+<t tx=".20150622201357.11">(uncached) office.20150504185417.1
+Diff...
+  @cherrypy.expose
+  def download_list(self, item_per_page=5, page=1, keyword=None, *args, **kwargs):
+      files = os.listdir(download_root_dir+"downloads/")
+      total_rows = len(files)
+      totalpage = math.ceil(total_rows/int(item_per_page))
+      starti = int(item_per_page) * (int(page) - 1) + 1
+      endi = starti + int(item_per_page) - 1
+      outstring = "&lt;form method='post' action='delete_file'&gt;"
+      notlast = False
+      if total_rows &gt; 0:
+          outstring += "&lt;br /&gt;"
+          if (int(page) * int(item_per_page)) &lt; total_rows:
+              notlast = True
+          if int(page) &gt; 1:
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+              page_num = int(page) - 1
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Previous&lt;/a&gt; "
+          span = 10
+          for index in range(int(page)-span, int(page)+span):
+              if index&gt;= 0 and index&lt; totalpage:
+                  page_now = index + 1 
+                  if page_now == int(page):
+                      outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                  else:
+                      outstring += "&lt;a href='"
+                      outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                      outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+  
+          if notlast == True:
+              nextpage = int(page) + 1
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Next&lt;/a&gt;"
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&gt;&gt;&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;"
+          if (int(page) * int(item_per_page)) &lt; total_rows:
+              notlast = True
+              outstring += downloadlist_access_list(files, starti, endi)+"&lt;br /&gt;"
+          else:
+              outstring += "&lt;br /&gt;&lt;br /&gt;"
+              outstring += downloadlist_access_list(files, starti, total_rows)+"&lt;br /&gt;"
+          
+          if int(page) &gt; 1:
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+              page_num = int(page) - 1
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Previous&lt;/a&gt; "
+          span = 10
+          for index in range(int(page)-span, int(page)+span):
+          #for ($j=$page-$range;$j&lt;$page+$range;$j++)
+              if index &gt;=0 and index &lt; totalpage:
+                  page_now = index + 1
+                  if page_now == int(page):
+                      outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                  else:
+                      outstring += "&lt;a href='"
+                      outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                      outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+          if notlast == True:
+              nextpage = int(page) + 1
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Next&lt;/a&gt;"
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&gt;&gt;&lt;/a&gt;"
+      else:
+          outstring += "no data!"
+      outstring += "&lt;br /&gt;&lt;br /&gt;&lt;input type='submit' value='delete'&gt;&lt;input type='reset' value='reset'&gt;&lt;/form&gt;"
+-     outstring += '&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;'
++ 
+      return "&lt;div class='container'&gt;&lt;nav&gt;"+ \
+          "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Download List&lt;/h1&gt;"+outstring+"&lt;br/&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;"
+</t>
+<t tx=".20150622201357.12">@cherrypy.expose
+def download_list(self, item_per_page=5, page=1, keyword=None, *args, **kwargs):
+    files = os.listdir(download_root_dir+"downloads/")
+    total_rows = len(files)
+    totalpage = math.ceil(total_rows/int(item_per_page))
+    starti = int(item_per_page) * (int(page) - 1) + 1
+    endi = starti + int(item_per_page) - 1
+    outstring = "&lt;form method='post' action='delete_file'&gt;"
+    notlast = False
+    if total_rows &gt; 0:
+        outstring += "&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+            if index&gt;= 0 and index&lt; totalpage:
+                page_now = index + 1 
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+            outstring += downloadlist_access_list(files, starti, endi)+"&lt;br /&gt;"
+        else:
+            outstring += "&lt;br /&gt;&lt;br /&gt;"
+            outstring += downloadlist_access_list(files, starti, total_rows)+"&lt;br /&gt;"
+        
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+        #for ($j=$page-$range;$j&lt;$page+$range;$j++)
+            if index &gt;=0 and index &lt; totalpage:
+                page_now = index + 1
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;"
+    else:
+        outstring += "no data!"
+    outstring += "&lt;br /&gt;&lt;br /&gt;&lt;input type='submit' value='delete'&gt;&lt;input type='reset' value='reset'&gt;&lt;/form&gt;"
+
+    return "&lt;div class='container'&gt;&lt;nav&gt;"+ \
+        "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Download List&lt;/h1&gt;"+outstring+"&lt;br/&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;"
+</t>
+<t tx=".20150622201357.13">@cherrypy.expose
+def download_list(self, item_per_page=5, page=1, keyword=None, *args, **kwargs):
+    files = os.listdir(download_root_dir+"downloads/")
+    total_rows = len(files)
+    totalpage = math.ceil(total_rows/int(item_per_page))
+    starti = int(item_per_page) * (int(page) - 1) + 1
+    endi = starti + int(item_per_page) - 1
+    outstring = "&lt;form method='post' action='delete_file'&gt;"
+    notlast = False
+    if total_rows &gt; 0:
+        outstring += "&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+            if index&gt;= 0 and index&lt; totalpage:
+                page_now = index + 1 
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+            outstring += downloadlist_access_list(files, starti, endi)+"&lt;br /&gt;"
+        else:
+            outstring += "&lt;br /&gt;&lt;br /&gt;"
+            outstring += downloadlist_access_list(files, starti, total_rows)+"&lt;br /&gt;"
+        
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+        #for ($j=$page-$range;$j&lt;$page+$range;$j++)
+            if index &gt;=0 and index &lt; totalpage:
+                page_now = index + 1
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;"
+    else:
+        outstring += "no data!"
+    outstring += "&lt;br /&gt;&lt;br /&gt;&lt;input type='submit' value='delete'&gt;&lt;input type='reset' value='reset'&gt;&lt;/form&gt;"
+    outstring += '&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;'
+    return "&lt;div class='container'&gt;&lt;nav&gt;"+ \
+        "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Download List&lt;/h1&gt;"+outstring+"&lt;br/&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;"
+</t>
+<t tx=".20150622201357.2">(uncached) 2014fall.20141212095015.1776
+Diff...
+  import cherrypy
+  # 導入 Python 內建的 os 模組, 因為 os 模組為 Python 內建, 所以無需透過 setup.py 安裝
+  import os
+  # 導入 random 模組
+  import random
+  import math
+- import man
+- import manstep
+  from cherrypy.lib.static import serve_file
+  # 導入 gear 模組
+  #import gear
+  
+  ################# (2) 廣域變數設定區
+  # 確定程式檔案所在目錄, 在 Windows 下有最後的反斜線
+  _curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+  # 設定在雲端與近端的資料儲存目錄
+  if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+      # 表示程式在雲端執行
+      download_root_dir = os.environ['OPENSHIFT_DATA_DIR']
+      data_dir = os.environ['OPENSHIFT_DATA_DIR']
+  else:
+      # 表示程式在近端執行
+      download_root_dir = _curdir + "/local_data/"
+      data_dir = _curdir + "/local_data/"
+  
+  
+</t>
+<t tx=".20150622201357.3">import cherrypy
+# 導入 Python 內建的 os 模組, 因為 os 模組為 Python 內建, 所以無需透過 setup.py 安裝
+import os
+# 導入 random 模組
+import random
+import math
+from cherrypy.lib.static import serve_file
+# 導入 gear 模組
+#import gear
+
+################# (2) 廣域變數設定區
+# 確定程式檔案所在目錄, 在 Windows 下有最後的反斜線
+_curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+# 設定在雲端與近端的資料儲存目錄
+if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+    # 表示程式在雲端執行
+    download_root_dir = os.environ['OPENSHIFT_DATA_DIR']
+    data_dir = os.environ['OPENSHIFT_DATA_DIR']
+else:
+    # 表示程式在近端執行
+    download_root_dir = _curdir + "/local_data/"
+    data_dir = _curdir + "/local_data/"
+
+
+</t>
+<t tx=".20150622201357.4">import cherrypy
+# 導入 Python 內建的 os 模組, 因為 os 模組為 Python 內建, 所以無需透過 setup.py 安裝
+import os
+# 導入 random 模組
+import random
+import math
+import man
+import manstep
+from cherrypy.lib.static import serve_file
+# 導入 gear 模組
+#import gear
+
+################# (2) 廣域變數設定區
+# 確定程式檔案所在目錄, 在 Windows 下有最後的反斜線
+_curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+# 設定在雲端與近端的資料儲存目錄
+if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+    # 表示程式在雲端執行
+    download_root_dir = os.environ['OPENSHIFT_DATA_DIR']
+    data_dir = os.environ['OPENSHIFT_DATA_DIR']
+else:
+    # 表示程式在近端執行
+    download_root_dir = _curdir + "/local_data/"
+    data_dir = _curdir + "/local_data/"
+
+
+</t>
+<t tx=".20150622201357.5">(uncached) amd.20150503173602.1
+Diff...
+  # 以 @ 開頭的 cherrypy.expose 為 decorator, 用來表示隨後的成員方法, 可以直接讓使用者以 URL 連結執行
+  @cherrypy.expose
+  # index 方法為 CherryPy 各類別成員方法中的內建(default)方法, 當使用者執行時未指定方法, 系統將會優先執行 index 方法
+  # 有 self 的方法為類別中的成員方法, Python 程式透過此一 self 在各成員方法間傳遞物件內容
+  def index(self):
+      outstring = '''
+      &lt;!DOCTYPE html&gt; 
+      &lt;html&gt;
+      &lt;head&gt;
+      &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+-     40223150起始頁面&lt;br /&gt;
+-     &lt;a href="spur"&gt;齒輪參數輸入&lt;/a&gt;&lt;br /&gt;
+?                    ^^^^^^
++     &lt;a href="spur"&gt;spur&lt;/a&gt;&lt;br /&gt;
+?                    ^^^^
+-     &lt;a href="drawspur"&gt;2D齒輪繪製&lt;/a&gt;&lt;br /&gt;
+?                        ^^^^^^
++     &lt;a href="drawspur"&gt;drawspur&lt;/a&gt;&lt;br /&gt;
+?                        ^^^^^^^^
+-     &lt;a href="fileuploadform"&gt;檔案上傳頁面&lt;/a&gt;&lt;br /&gt;
+?                                ----
++     &lt;a href="fileuploadform"&gt;上傳檔案&lt;/a&gt;&lt;br /&gt;
+?                              ++
+-     &lt;a href="download_list"&gt;已上傳檔案&lt;/a&gt;&lt;br /&gt;
+?                             ^
++     &lt;a href="download_list"&gt;列出上傳檔案&lt;/a&gt;&lt;br /&gt;
+?                             ^^
+-     &lt;a href="man"&gt;樂高機器人自動組立&lt;/a&gt;&lt;br /&gt;
+-     &lt;a href="manstep"&gt;樂高機器人單步組立&lt;/a&gt;&lt;br /&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+      '''
+      
+      return outstring
+</t>
+<t tx=".20150622201357.6"># 以 @ 開頭的 cherrypy.expose 為 decorator, 用來表示隨後的成員方法, 可以直接讓使用者以 URL 連結執行
+@cherrypy.expose
+# index 方法為 CherryPy 各類別成員方法中的內建(default)方法, 當使用者執行時未指定方法, 系統將會優先執行 index 方法
+# 有 self 的方法為類別中的成員方法, Python 程式透過此一 self 在各成員方法間傳遞物件內容
+def index(self):
+    outstring = '''
+    &lt;!DOCTYPE html&gt; 
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;a href="spur"&gt;spur&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="drawspur"&gt;drawspur&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="fileuploadform"&gt;上傳檔案&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="download_list"&gt;列出上傳檔案&lt;/a&gt;&lt;br /&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    '''
+    
+    return outstring
+</t>
+<t tx=".20150622201357.7"># 以 @ 開頭的 cherrypy.expose 為 decorator, 用來表示隨後的成員方法, 可以直接讓使用者以 URL 連結執行
+@cherrypy.expose
+# index 方法為 CherryPy 各類別成員方法中的內建(default)方法, 當使用者執行時未指定方法, 系統將會優先執行 index 方法
+# 有 self 的方法為類別中的成員方法, Python 程式透過此一 self 在各成員方法間傳遞物件內容
+def index(self):
+    outstring = '''
+    &lt;!DOCTYPE html&gt; 
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    40223150起始頁面&lt;br /&gt;
+    &lt;a href="spur"&gt;齒輪參數輸入&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="drawspur"&gt;2D齒輪繪製&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="fileuploadform"&gt;檔案上傳頁面&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="download_list"&gt;已上傳檔案&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="man"&gt;樂高機器人自動組立&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="manstep"&gt;樂高機器人單步組立&lt;/a&gt;&lt;br /&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    '''
+    
+    return outstring
+</t>
+<t tx=".20150622201357.8">(uncached) office.20150504183254.1
+Diff...
+  @cherrypy.expose
+  def fileuploadform(self):
+      return '''&lt;h1&gt;file upload&lt;/h1&gt;
+  &lt;script src="/static/jquery.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;script src="/static/axuploader.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;script&gt;
+  $(document).ready(function(){
+  $('.prova').axuploader({url:'fileaxupload', allowExt:['jpg','png','gif','7z','pdf','zip','flv','stl','swf'],
+  finish:function(x,files)
+      {
+          alert('All files have been uploaded: '+files);
+      },
+  enable:true,
+  remotePath:function(){
+  return 'downloads/';
+  }
+  });
+  });
+  &lt;/script&gt;
+  &lt;div class="prova"&gt;&lt;/div&gt;
+  &lt;input type="button" onclick="$('.prova').axuploader('disable')" value="asd" /&gt;
+  &lt;input type="button" onclick="$('.prova').axuploader('enable')" value="ok" /&gt;
+- &lt;/section&gt;
+- &lt;br /&gt;&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;
+- &lt;/body&gt;&lt;/html&gt;
++ &lt;/section&gt;&lt;/body&gt;&lt;/html&gt;
+? ++++++++++
+- '''
+?    -
++ '''</t>
+<t tx=".20150622201357.9">@cherrypy.expose
+def fileuploadform(self):
+    return '''&lt;h1&gt;file upload&lt;/h1&gt;
+&lt;script src="/static/jquery.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/axuploader.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script&gt;
+$(document).ready(function(){
+$('.prova').axuploader({url:'fileaxupload', allowExt:['jpg','png','gif','7z','pdf','zip','flv','stl','swf'],
+finish:function(x,files)
+    {
+        alert('All files have been uploaded: '+files);
+    },
+enable:true,
+remotePath:function(){
+return 'downloads/';
+}
+});
+});
+&lt;/script&gt;
+&lt;div class="prova"&gt;&lt;/div&gt;
+&lt;input type="button" onclick="$('.prova').axuploader('disable')" value="asd" /&gt;
+&lt;input type="button" onclick="$('.prova').axuploader('enable')" value="ok" /&gt;
+&lt;/section&gt;&lt;/body&gt;&lt;/html&gt;
+'''</t>
+<t tx=".20150623012806.1"></t>
+<t tx=".20150623012806.2">(uncached) 2015.20150623005701.3
+Diff...
+  # N 為齒數, M 為模數, P 為壓力角
+  def index(self, m=None, ng1=None, ng2=None, ng3=None, ng4=None, ng5=None, ng6=None, ng7=None, inp2=None):
+      # 將標準答案存入 answer session 對應區
+      theanswer = random.randint(1, 100)
+      thecount = 0
+      # 將答案與計算次數變數存進 session 對應變數
+      cherrypy.session['answer'] = theanswer
+      cherrypy.session['count'] = thecount
+      # 印出讓使用者輸入的超文件表單
+      outstring = self.menuLink()
+      outstring += '''&lt;br /&gt;'''
+      outstring += '''
+  &lt;!DOCTYPE html&gt; 
+  &lt;html&gt;
+  &lt;title&gt;
+  期末齒輪 -單人
+  &lt;/title&gt;
+  &lt;head&gt;
+  &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+  &lt;!-- 載入 brython.js --&gt;
+  &lt;script type="text/javascript" src="/static/Brython3.1.0-20150301-090019/brython.js"&gt;&lt;/script&gt;
+  &lt;script src="/static/Cango2D.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;script src="/static/gearUtils-04.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;!-- 啟動 brython() --&gt;
+  &lt;body onload="brython()"&gt;
+  
+  
+  &lt;form method=\"post\" action=\"dogear\"&gt;
+      &lt;legend&gt;輸入條件&lt;/legend&gt;
+  
+      齒數1:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"ng1\" value="10"&gt;&lt;br /&gt;
+      齒數2:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"ng2\" value="10"&gt;&lt;br /&gt;
+      齒數3:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"ng3\" value="10"&gt;&lt;br /&gt;
+      齒數4:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"ng4\" value="10"&gt;&lt;br /&gt;
+      齒數5:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"ng5\" value="8"&gt;&lt;br /&gt;
+      齒數6:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"ng6\" value="8"&gt;&lt;br /&gt;
+      齒數7:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"ng7\" value="8"&gt;&lt;br /&gt;
+      模數:&lt;br /&gt;
+      &lt;input type=\"text\" name=\"m\" value="10"&gt;&lt;br /&gt;
+      壓力角(&gt;33時會有錯誤):&lt;br /&gt;
+      &lt;input type=\"text\" name=\"inp2\" value="30"&gt;&lt;br /&gt;
+      &lt;input type=\"submit\" value=\"畫圖!!\"&gt;
+      &lt;input type=\"reset\" value=\"重填\"&gt;
+  &lt;/form&gt;
+  &lt;hr&gt;
+  &lt;!-- 以下在網頁內嵌 Brython 程式 --&gt;
+  &lt;script type="text/python"&gt;
+  from browser import document, alert
+  
+  def echo(ev):
+      alert(document["zone"].value)
+  
+  # 將文件中名稱為 mybutton 的物件, 透過 click 事件與 echo 函式 bind 在一起
+  document['mybutton'].bind('click',echo)
+  &lt;/script&gt;
+  
+  &lt;!-- 以下為 canvas 畫圖程式 --&gt;
+  &lt;script type="text/python"&gt;
+  # 從 browser 導入 document
+  from browser import document
+  from math import *
+  
+  # 準備在 id="plotarea" 的 canvas 中繪圖
+  canvas = document["plotarea"]
+  ctx = canvas.getContext("2d")
+  
+  def create_line(x1, y1, x2, y2, width=3, fill="red"):
+  ctx.beginPath()
+  ctx.lineWidth = width
+  ctx.moveTo(x1, y1)
+  ctx.lineTo(x2, y2)
+  ctx.strokeStyle = fill
+  ctx.stroke()
+  
+  # 導入數學函式後, 圓周率為 pi
+  # deg 為角度轉為徑度的轉換因子
+  deg = pi/180.
+  
+  # 以下分別為正齒輪繪圖與主 tkinter 畫布繪圖
+  
+  # 定義一個繪正齒輪的繪圖函式
+  # midx 為齒輪圓心 x 座標
+  # midy 為齒輪圓心 y 座標
+  # rp 為節圓半徑, n 為齒數
+  def gear(midx, midy, rp, n, 顏色):
+  # 將角度轉換因子設為全域變數
+  global deg
+  # 齒輪漸開線分成 15 線段繪製
+  imax = 15
+  # 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+  create_line(midx, midy, midx, midy-rp)
+  # 畫出 rp 圓, 畫圓函式尚未定義
+  #create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+  # a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+  # 模數也就是齒冠大小
+  a=2*rp/n
+  # d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+  d=2.5*rp/n
+  # ra 為齒輪的外圍半徑
+  ra=rp+a
+  print("ra:", ra)
+  # 畫出 ra 圓, 畫圓函式尚未定義
+  #create_oval(midx-ra, midy-ra, midx+ra, midy+ra, width=1)
+  # rb 則為齒輪的基圓半徑
+  # 基圓為漸開線長齒之基準圓
+  rb=rp*cos(20*deg)
+  print("rp:", rp)
+  print("rb:", rb)
+  # 畫出 rb 圓 (基圓), 畫圓函式尚未定義
+  #create_oval(midx-rb, midy-rb, midx+rb, midy+rb, width=1)
+  # rd 為齒根圓半徑
+  rd=rp-d
+  # 當 rd 大於 rb 時
+  print("rd:", rd)
+  # 畫出 rd 圓 (齒根圓), 畫圓函式尚未定義
+  #create_oval(midx-rd, midy-rd, midx+rd, midy+rd, width=1)
+  # dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+  # 將圓弧分成 imax 段來繪製漸開線
+  dr=(ra-rb)/imax
+  # tan(20*deg)-20*deg 為漸開線函數
+  sigma=pi/(2*n)+tan(20*deg)-20*deg
+  for j in range(n):
+      ang=-2.*j*pi/n+sigma
+      ang2=2.*j*pi/n+sigma
+      lxd=midx+rd*sin(ang2-2.*pi/n)
+      lyd=midy-rd*cos(ang2-2.*pi/n)
+      #for(i=0;i&lt;=imax;i++):
+      for i in range(imax+1):
+          r=rb+i*dr
+          theta=sqrt((r*r)/(rb*rb)-1.)
+          alpha=theta-atan(theta)
+          xpt=r*sin(alpha-ang)
+          ypt=r*cos(alpha-ang)
+          xd=rd*sin(-ang)
+          yd=rd*cos(-ang)
+          # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+          if(i==0):
+              last_x = midx+xd
+              last_y = midy-yd
+          # 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+          create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+          # 最後一點, 則為齒頂圓
+          if(i==imax):
+              lfx=midx+xpt
+              lfy=midy-ypt
+          last_x = midx+xpt
+          last_y = midy-ypt
+      # the line from last end of dedendum point to the recent
+      # end of dedendum point
+      # lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+      # 下列為齒根圓上用來近似圓弧的直線
+      create_line((lxd),(lyd),(midx+xd),(midy-yd),fill=顏色)
+      #for(i=0;i&lt;=imax;i++):
+      for i in range(imax+1):
+          r=rb+i*dr
+          theta=sqrt((r*r)/(rb*rb)-1.)
+          alpha=theta-atan(theta)
+          xpt=r*sin(ang2-alpha)
+          ypt=r*cos(ang2-alpha)
+          xd=rd*sin(ang2)
+          yd=rd*cos(ang2)
+          # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+          if(i==0):
+              last_x = midx+xd
+              last_y = midy-yd
+          # 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+          create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+          # 最後一點, 則為齒頂圓
+          if(i==imax):
+              rfx=midx+xpt
+              rfy=midy-ypt
+          last_x = midx+xpt
+          last_y = midy-ypt
+      # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+      # 下列為齒頂圓上用來近似圓弧的直線
+      create_line(lfx,lfy,rfx,rfy,fill=顏色)
+  
+  gear(400,400,300,41,"blue")
+  &lt;/script&gt;
+  &lt;canvas id="plotarea" width="800" height="800"&gt;&lt;/canvas&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+  '''
+  
+      return outstring
+- @cherrypy.exposed
++ 
+</t>
+<t tx=".20150623012806.3"># N 為齒數, M 為模數, P 為壓力角
+def index(self, m=None, ng1=None, ng2=None, ng3=None, ng4=None, ng5=None, ng6=None, ng7=None, inp2=None):
+    # 將標準答案存入 answer session 對應區
+    theanswer = random.randint(1, 100)
+    thecount = 0
+    # 將答案與計算次數變數存進 session 對應變數
+    cherrypy.session['answer'] = theanswer
+    cherrypy.session['count'] = thecount
+    # 印出讓使用者輸入的超文件表單
+    outstring = self.menuLink()
+    outstring += '''&lt;br /&gt;'''
+    outstring += '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;title&gt;
+期末齒輪 -單人
+&lt;/title&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.0-20150301-090019/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/Cango2D.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/gearUtils-04.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+
+
+&lt;form method=\"post\" action=\"dogear\"&gt;
+    &lt;legend&gt;輸入條件&lt;/legend&gt;
+
+    齒數1:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng1\" value="10"&gt;&lt;br /&gt;
+    齒數2:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng2\" value="10"&gt;&lt;br /&gt;
+    齒數3:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng3\" value="10"&gt;&lt;br /&gt;
+    齒數4:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng4\" value="10"&gt;&lt;br /&gt;
+    齒數5:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng5\" value="8"&gt;&lt;br /&gt;
+    齒數6:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng6\" value="8"&gt;&lt;br /&gt;
+    齒數7:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng7\" value="8"&gt;&lt;br /&gt;
+    模數:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"m\" value="10"&gt;&lt;br /&gt;
+    壓力角(&gt;33時會有錯誤):&lt;br /&gt;
+    &lt;input type=\"text\" name=\"inp2\" value="30"&gt;&lt;br /&gt;
+    &lt;input type=\"submit\" value=\"畫圖!!\"&gt;
+    &lt;input type=\"reset\" value=\"重填\"&gt;
+&lt;/form&gt;
+&lt;hr&gt;
+&lt;!-- 以下在網頁內嵌 Brython 程式 --&gt;
+&lt;script type="text/python"&gt;
+from browser import document, alert
+
+def echo(ev):
+    alert(document["zone"].value)
+
+# 將文件中名稱為 mybutton 的物件, 透過 click 事件與 echo 函式 bind 在一起
+document['mybutton'].bind('click',echo)
+&lt;/script&gt;
+
+&lt;!-- 以下為 canvas 畫圖程式 --&gt;
+&lt;script type="text/python"&gt;
+# 從 browser 導入 document
+from browser import document
+from math import *
+
+# 準備在 id="plotarea" 的 canvas 中繪圖
+canvas = document["plotarea"]
+ctx = canvas.getContext("2d")
+
+def create_line(x1, y1, x2, y2, width=3, fill="red"):
+ctx.beginPath()
+ctx.lineWidth = width
+ctx.moveTo(x1, y1)
+ctx.lineTo(x2, y2)
+ctx.strokeStyle = fill
+ctx.stroke()
+
+# 導入數學函式後, 圓周率為 pi
+# deg 為角度轉為徑度的轉換因子
+deg = pi/180.
+
+# 以下分別為正齒輪繪圖與主 tkinter 畫布繪圖
+
+# 定義一個繪正齒輪的繪圖函式
+# midx 為齒輪圓心 x 座標
+# midy 為齒輪圓心 y 座標
+# rp 為節圓半徑, n 為齒數
+def gear(midx, midy, rp, n, 顏色):
+# 將角度轉換因子設為全域變數
+global deg
+# 齒輪漸開線分成 15 線段繪製
+imax = 15
+# 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+create_line(midx, midy, midx, midy-rp)
+# 畫出 rp 圓, 畫圓函式尚未定義
+#create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+# a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+# 模數也就是齒冠大小
+a=2*rp/n
+# d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+d=2.5*rp/n
+# ra 為齒輪的外圍半徑
+ra=rp+a
+print("ra:", ra)
+# 畫出 ra 圓, 畫圓函式尚未定義
+#create_oval(midx-ra, midy-ra, midx+ra, midy+ra, width=1)
+# rb 則為齒輪的基圓半徑
+# 基圓為漸開線長齒之基準圓
+rb=rp*cos(20*deg)
+print("rp:", rp)
+print("rb:", rb)
+# 畫出 rb 圓 (基圓), 畫圓函式尚未定義
+#create_oval(midx-rb, midy-rb, midx+rb, midy+rb, width=1)
+# rd 為齒根圓半徑
+rd=rp-d
+# 當 rd 大於 rb 時
+print("rd:", rd)
+# 畫出 rd 圓 (齒根圓), 畫圓函式尚未定義
+#create_oval(midx-rd, midy-rd, midx+rd, midy+rd, width=1)
+# dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+# 將圓弧分成 imax 段來繪製漸開線
+dr=(ra-rb)/imax
+# tan(20*deg)-20*deg 為漸開線函數
+sigma=pi/(2*n)+tan(20*deg)-20*deg
+for j in range(n):
+    ang=-2.*j*pi/n+sigma
+    ang2=2.*j*pi/n+sigma
+    lxd=midx+rd*sin(ang2-2.*pi/n)
+    lyd=midy-rd*cos(ang2-2.*pi/n)
+    #for(i=0;i&lt;=imax;i++):
+    for i in range(imax+1):
+        r=rb+i*dr
+        theta=sqrt((r*r)/(rb*rb)-1.)
+        alpha=theta-atan(theta)
+        xpt=r*sin(alpha-ang)
+        ypt=r*cos(alpha-ang)
+        xd=rd*sin(-ang)
+        yd=rd*cos(-ang)
+        # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+        if(i==0):
+            last_x = midx+xd
+            last_y = midy-yd
+        # 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+        create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+        # 最後一點, 則為齒頂圓
+        if(i==imax):
+            lfx=midx+xpt
+            lfy=midy-ypt
+        last_x = midx+xpt
+        last_y = midy-ypt
+    # the line from last end of dedendum point to the recent
+    # end of dedendum point
+    # lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+    # 下列為齒根圓上用來近似圓弧的直線
+    create_line((lxd),(lyd),(midx+xd),(midy-yd),fill=顏色)
+    #for(i=0;i&lt;=imax;i++):
+    for i in range(imax+1):
+        r=rb+i*dr
+        theta=sqrt((r*r)/(rb*rb)-1.)
+        alpha=theta-atan(theta)
+        xpt=r*sin(ang2-alpha)
+        ypt=r*cos(ang2-alpha)
+        xd=rd*sin(ang2)
+        yd=rd*cos(ang2)
+        # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+        if(i==0):
+            last_x = midx+xd
+            last_y = midy-yd
+        # 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+        create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+        # 最後一點, 則為齒頂圓
+        if(i==imax):
+            rfx=midx+xpt
+            rfy=midy-ypt
+        last_x = midx+xpt
+        last_y = midy-ypt
+    # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+    # 下列為齒頂圓上用來近似圓弧的直線
+    create_line(lfx,lfy,rfx,rfy,fill=顏色)
+
+gear(400,400,300,41,"blue")
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="800" height="800"&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+
+    return outstring
+
+</t>
+<t tx=".20150623012806.4"># N 為齒數, M 為模數, P 為壓力角
+def index(self, m=None, ng1=None, ng2=None, ng3=None, ng4=None, ng5=None, ng6=None, ng7=None, inp2=None):
+    # 將標準答案存入 answer session 對應區
+    theanswer = random.randint(1, 100)
+    thecount = 0
+    # 將答案與計算次數變數存進 session 對應變數
+    cherrypy.session['answer'] = theanswer
+    cherrypy.session['count'] = thecount
+    # 印出讓使用者輸入的超文件表單
+    outstring = self.menuLink()
+    outstring += '''&lt;br /&gt;'''
+    outstring += '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;title&gt;
+期末齒輪 -單人
+&lt;/title&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.0-20150301-090019/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/Cango2D.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/gearUtils-04.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+
+
+&lt;form method=\"post\" action=\"dogear\"&gt;
+    &lt;legend&gt;輸入條件&lt;/legend&gt;
+
+    齒數1:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng1\" value="10"&gt;&lt;br /&gt;
+    齒數2:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng2\" value="10"&gt;&lt;br /&gt;
+    齒數3:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng3\" value="10"&gt;&lt;br /&gt;
+    齒數4:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng4\" value="10"&gt;&lt;br /&gt;
+    齒數5:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng5\" value="8"&gt;&lt;br /&gt;
+    齒數6:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng6\" value="8"&gt;&lt;br /&gt;
+    齒數7:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng7\" value="8"&gt;&lt;br /&gt;
+    模數:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"m\" value="10"&gt;&lt;br /&gt;
+    壓力角(&gt;33時會有錯誤):&lt;br /&gt;
+    &lt;input type=\"text\" name=\"inp2\" value="30"&gt;&lt;br /&gt;
+    &lt;input type=\"submit\" value=\"畫圖!!\"&gt;
+    &lt;input type=\"reset\" value=\"重填\"&gt;
+&lt;/form&gt;
+&lt;hr&gt;
+&lt;!-- 以下在網頁內嵌 Brython 程式 --&gt;
+&lt;script type="text/python"&gt;
+from browser import document, alert
+
+def echo(ev):
+    alert(document["zone"].value)
+
+# 將文件中名稱為 mybutton 的物件, 透過 click 事件與 echo 函式 bind 在一起
+document['mybutton'].bind('click',echo)
+&lt;/script&gt;
+
+&lt;!-- 以下為 canvas 畫圖程式 --&gt;
+&lt;script type="text/python"&gt;
+# 從 browser 導入 document
+from browser import document
+from math import *
+
+# 準備在 id="plotarea" 的 canvas 中繪圖
+canvas = document["plotarea"]
+ctx = canvas.getContext("2d")
+
+def create_line(x1, y1, x2, y2, width=3, fill="red"):
+ctx.beginPath()
+ctx.lineWidth = width
+ctx.moveTo(x1, y1)
+ctx.lineTo(x2, y2)
+ctx.strokeStyle = fill
+ctx.stroke()
+
+# 導入數學函式後, 圓周率為 pi
+# deg 為角度轉為徑度的轉換因子
+deg = pi/180.
+
+# 以下分別為正齒輪繪圖與主 tkinter 畫布繪圖
+
+# 定義一個繪正齒輪的繪圖函式
+# midx 為齒輪圓心 x 座標
+# midy 為齒輪圓心 y 座標
+# rp 為節圓半徑, n 為齒數
+def gear(midx, midy, rp, n, 顏色):
+# 將角度轉換因子設為全域變數
+global deg
+# 齒輪漸開線分成 15 線段繪製
+imax = 15
+# 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+create_line(midx, midy, midx, midy-rp)
+# 畫出 rp 圓, 畫圓函式尚未定義
+#create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+# a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+# 模數也就是齒冠大小
+a=2*rp/n
+# d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+d=2.5*rp/n
+# ra 為齒輪的外圍半徑
+ra=rp+a
+print("ra:", ra)
+# 畫出 ra 圓, 畫圓函式尚未定義
+#create_oval(midx-ra, midy-ra, midx+ra, midy+ra, width=1)
+# rb 則為齒輪的基圓半徑
+# 基圓為漸開線長齒之基準圓
+rb=rp*cos(20*deg)
+print("rp:", rp)
+print("rb:", rb)
+# 畫出 rb 圓 (基圓), 畫圓函式尚未定義
+#create_oval(midx-rb, midy-rb, midx+rb, midy+rb, width=1)
+# rd 為齒根圓半徑
+rd=rp-d
+# 當 rd 大於 rb 時
+print("rd:", rd)
+# 畫出 rd 圓 (齒根圓), 畫圓函式尚未定義
+#create_oval(midx-rd, midy-rd, midx+rd, midy+rd, width=1)
+# dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+# 將圓弧分成 imax 段來繪製漸開線
+dr=(ra-rb)/imax
+# tan(20*deg)-20*deg 為漸開線函數
+sigma=pi/(2*n)+tan(20*deg)-20*deg
+for j in range(n):
+    ang=-2.*j*pi/n+sigma
+    ang2=2.*j*pi/n+sigma
+    lxd=midx+rd*sin(ang2-2.*pi/n)
+    lyd=midy-rd*cos(ang2-2.*pi/n)
+    #for(i=0;i&lt;=imax;i++):
+    for i in range(imax+1):
+        r=rb+i*dr
+        theta=sqrt((r*r)/(rb*rb)-1.)
+        alpha=theta-atan(theta)
+        xpt=r*sin(alpha-ang)
+        ypt=r*cos(alpha-ang)
+        xd=rd*sin(-ang)
+        yd=rd*cos(-ang)
+        # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+        if(i==0):
+            last_x = midx+xd
+            last_y = midy-yd
+        # 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+        create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+        # 最後一點, 則為齒頂圓
+        if(i==imax):
+            lfx=midx+xpt
+            lfy=midy-ypt
+        last_x = midx+xpt
+        last_y = midy-ypt
+    # the line from last end of dedendum point to the recent
+    # end of dedendum point
+    # lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+    # 下列為齒根圓上用來近似圓弧的直線
+    create_line((lxd),(lyd),(midx+xd),(midy-yd),fill=顏色)
+    #for(i=0;i&lt;=imax;i++):
+    for i in range(imax+1):
+        r=rb+i*dr
+        theta=sqrt((r*r)/(rb*rb)-1.)
+        alpha=theta-atan(theta)
+        xpt=r*sin(ang2-alpha)
+        ypt=r*cos(ang2-alpha)
+        xd=rd*sin(ang2)
+        yd=rd*cos(ang2)
+        # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+        if(i==0):
+            last_x = midx+xd
+            last_y = midy-yd
+        # 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+        create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+        # 最後一點, 則為齒頂圓
+        if(i==imax):
+            rfx=midx+xpt
+            rfy=midy-ypt
+        last_x = midx+xpt
+        last_y = midy-ypt
+    # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+    # 下列為齒頂圓上用來近似圓弧的直線
+    create_line(lfx,lfy,rfx,rfy,fill=顏色)
+
+gear(400,400,300,41,"blue")
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="800" height="800"&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+
+    return outstring
+@cherrypy.exposed
+</t>
+<t tx=".20150623015952.1">@cherrypy.expose
+def dogear(self, m=None, ng1=None, ng2=None, inp2=None):
+    outString = ""
+    outString += self.menuLink()
+    outString += '''&lt;br /&gt;'''
+    outString +="藍色，齒數1:"+ng1
+    outString += "&lt;br /&gt;"
+    outString +="黑色，齒數2:"+ng2
+    outString += "&lt;br /&gt;"
+    outString +="模數:"+m
+    outString += "&lt;br /&gt;"
+    outString +="壓力角:"+inp2
+    outString += "&lt;br /&gt;"
+    outString += '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.1-20150328-091302/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/Cango2D.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/gearUtils-04.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+
+&lt;!-- 以下為 canvas 畫圖程式 --&gt;
+&lt;script type="text/python"&gt;
+# 從 browser 導入 document
+from browser import document
+from math import *
+# 請注意, 這裡導入位於 Lib/site-packages 目錄下的 spur.py 檔案
+import spur
+
+# 準備在 id="plotarea" 的 canvas 中繪圖
+canvas = document["plotarea"]
+ctx = canvas.getContext("2d")
+# 以下利用 spur.py 程式進行繪圖, 接下來的協同設計運算必須要配合使用者的需求進行設計運算與繪圖
+# 其中並將工作分配給其他組員建立類似 spur.py 的相關零件繪圖模組
+# midx, midy 為齒輪圓心座標, rp 為節圓半徑, n 為齒數, pa 為壓力角, color 為線的顏色
+# Gear(midx, midy, rp, n=20, pa=20, color="black"):
+# 模數決定齒的尺寸大小, 囓合齒輪組必須有相同的模數與壓力角
+# 壓力角 pa 單位為角度
+pa = '''+str(inp2)+'''
+
+# m 為模數
+m = '''+str(m)+'''
+
+# 齒輪齒數
+n_g1 = '''+str(ng1)+'''
+n_g2 = '''+str(ng2)+'''
+
+
+
+# 計算兩齒輪的節圓半徑
+rp_g1 = m*n_g1/2
+rp_g2 = m*n_g2/2
+
+
+# 繪圖齒輪的圓心座標,假設排列成水平, 表示各齒輪圓心 y 座標相同
+x_g1 = 100
+y_g1 = 200
+
+x_g2 = x_g1
+y_g2 = y_g1 - rp_g1 - rp_g2
+
+
+
+#齒輪嚙合的旋轉角
+# 將第1齒輪順時鐘轉 90 度
+th1 = 0
+
+# 將第2齒輪逆時鐘轉 90 度之後, 再多轉一齒, 以便與第1齒輪進行囓合
+th2 = pi-pi/n_g2
+
+# 將第3齒輪逆時鐘轉 90 度之後, 再往回轉第2齒輪定位帶動轉角, 然後再逆時鐘多轉一齒, 以便與第2齒輪進行囓合
+# 第1個 -pi/2 為將原先垂直的第3齒輪定位線逆時鐘旋轉 90 度
+# -pi/n_g3 則是第3齒與第2齒定位線重合後, 必須再逆時鐘多轉一齒的轉角, 以便進行囓合
+# (pi+pi/n_g2)*n_g2/n_g3 則是第2齒原定位線為順時鐘轉動 90 度, 
+# pi+pi/n_g2 為第2齒輪從順時鐘轉 90 度之後, 必須配合目前的標記線所作的齒輪 2 轉動角度, 要轉換到齒輪3 的轉動角度
+# 必須乘上兩齒輪齒數的比例, 若齒輪2 大, 則齒輪3 會轉動較快
+# 但是第2齒輪為了與第1齒輪囓合, 已經距離定位線, 多轉了 180 度, 再加上第2齒輪的一齒角度, 因為要帶動第3齒輪定位, 
+# 這個修正角度必須要再配合第2齒與第3齒的轉速比加以轉換成第3齒輪的轉角, 因此乘上 n_g2/n_g3
+
+
+
+
+# 使用 ctx.save() 與 ctx.restore() 以確保各齒輪以相對座標進行旋轉繪圖
+ctx.save()
+# translate to the origin of second gear
+ctx.translate(x_g1,y_g1)
+ctx.rotate(th1)
+# put it back
+ctx.translate(-x_g1,-y_g1)
+spur.Spur(ctx).Gear(x_g1,y_g1,rp_g1,n_g1, pa, "blue")
+ctx.restore()
+
+ctx.save()
+# translate to the origin of second gear
+ctx.translate(x_g2,y_g2)
+# rotate to engage
+ctx.rotate(th2)
+# put it back
+ctx.translate(-x_g2,-y_g2)
+spur.Spur(ctx).Gear(x_g2,y_g2,rp_g2,n_g2, pa, "black")
+ctx.restore()
+
+# 假如第3齒也要進行囓合, 又該如何進行繪圖?
+
+
+
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="2800" height="1200"&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+    return outString
+
+
+</t>
+<t tx=".20150623021441.1">@cherrypy.expose
+def dogears(self, m=None, ng1=None, ng2=None, ng3=None, ng4=None, inp2=None):
+    outString = ""
+    outString += self.menuLink()
+    outString += '''&lt;br /&gt;'''
+    outString +="藍色，齒數1:"+ng1
+    outString += "&lt;br /&gt;"
+    outString +="黑色，齒數2:"+ng2
+    outString += "&lt;br /&gt;"
+    outString +="紅色，齒數3:"+ng3
+    outString += "&lt;br /&gt;"
+    outString +="紫色，齒數4:"+ng4
+    outString += "&lt;br /&gt;"
+    outString +="模數:"+m
+    outString += "&lt;br /&gt;"
+    outString +="壓力角:"+inp2
+    outString += "&lt;br /&gt;"
+    outString += '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.1-20150328-091302/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/Cango2D.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/gearUtils-04.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+
+&lt;!-- 以下為 canvas 畫圖程式 --&gt;
+&lt;script type="text/python"&gt;
+# 從 browser 導入 document
+from browser import document
+from math import *
+# 請注意, 這裡導入位於 Lib/site-packages 目錄下的 spur.py 檔案
+import spur
+
+# 準備在 id="plotarea" 的 canvas 中繪圖
+canvas = document["plotarea"]
+ctx = canvas.getContext("2d")
+# 以下利用 spur.py 程式進行繪圖, 接下來的協同設計運算必須要配合使用者的需求進行設計運算與繪圖
+# 其中並將工作分配給其他組員建立類似 spur.py 的相關零件繪圖模組
+# midx, midy 為齒輪圓心座標, rp 為節圓半徑, n 為齒數, pa 為壓力角, color 為線的顏色
+# Gear(midx, midy, rp, n=20, pa=20, color="black"):
+# 模數決定齒的尺寸大小, 囓合齒輪組必須有相同的模數與壓力角
+# 壓力角 pa 單位為角度
+pa = '''+str(inp2)+'''
+
+# m 為模數
+m = '''+str(m)+'''
+
+# 齒輪齒數
+n_g1 = '''+str(ng1)+'''
+n_g2 = '''+str(ng2)+'''
+n_g3 = '''+str(ng3)+'''
+n_g4 = '''+str(ng4)+'''
+
+
+
+# 計算兩齒輪的節圓半徑
+rp_g1 = m*n_g1/2
+rp_g2 = m*n_g2/2
+rp_g3 = m*n_g3/2
+rp_g4 = m*n_g4/2
+
+
+# 繪圖齒輪的圓心座標,假設排列成水平, 表示各齒輪圓心 y 座標相同
+x_g1 = 100
+y_g1 = 200
+
+x_g2 = x_g1
+y_g2 = y_g1 - rp_g1 - rp_g2
+
+x_g3 = x_g1 +rp_g1 +rp_g3
+y_g3 = y_g1
+
+x_g4 = x_g3
+y_g4 = y_g3 +rp_g3 +rp_g4
+
+
+#齒輪嚙合的旋轉角
+# 將第1齒輪順時鐘轉 90 度
+th1 = 0
+
+# 將第2齒輪逆時鐘轉 90 度之後, 再多轉一齒, 以便與第1齒輪進行囓合
+th2 = pi-pi/n_g2
+
+# 將第3齒輪逆時鐘轉 90 度之後, 再往回轉第2齒輪定位帶動轉角, 然後再逆時鐘多轉一齒, 以便與第2齒輪進行囓合
+# 第1個 -pi/2 為將原先垂直的第3齒輪定位線逆時鐘旋轉 90 度
+# -pi/n_g3 則是第3齒與第2齒定位線重合後, 必須再逆時鐘多轉一齒的轉角, 以便進行囓合
+# (pi+pi/n_g2)*n_g2/n_g3 則是第2齒原定位線為順時鐘轉動 90 度, 
+# pi+pi/n_g2 為第2齒輪從順時鐘轉 90 度之後, 必須配合目前的標記線所作的齒輪 2 轉動角度, 要轉換到齒輪3 的轉動角度
+# 必須乘上兩齒輪齒數的比例, 若齒輪2 大, 則齒輪3 會轉動較快
+# 但是第2齒輪為了與第1齒輪囓合, 已經距離定位線, 多轉了 180 度, 再加上第2齒輪的一齒角度, 因為要帶動第3齒輪定位, 
+# 這個修正角度必須要再配合第2齒與第3齒的轉速比加以轉換成第3齒輪的轉角, 因此乘上 n_g2/n_g3
+th3 = -pi/2 +pi/n_g3  +pi/2*(n_g1/n_g3)
+
+th4 = pi/n_g4 -(th3+pi)*(n_g3/n_g4)
+
+
+
+
+# 使用 ctx.save() 與 ctx.restore() 以確保各齒輪以相對座標進行旋轉繪圖
+ctx.save()
+# translate to the origin of second gear
+ctx.translate(x_g1,y_g1)
+ctx.rotate(th1)
+# put it back
+ctx.translate(-x_g1,-y_g1)
+spur.Spur(ctx).Gear(x_g1,y_g1,rp_g1,n_g1, pa, "blue")
+ctx.restore()
+
+ctx.save()
+# translate to the origin of second gear
+ctx.translate(x_g2,y_g2)
+# rotate to engage
+ctx.rotate(th2)
+# put it back
+ctx.translate(-x_g2,-y_g2)
+spur.Spur(ctx).Gear(x_g2,y_g2,rp_g2,n_g2, pa, "black")
+ctx.restore()
+
+# 假如第3齒也要進行囓合, 又該如何進行繪圖?
+
+ctx.save()
+# translate to the origin of second gear
+ctx.translate(x_g3,y_g3)
+# rotate to engage
+ctx.rotate(th3)
+# put it back
+ctx.translate(-x_g3,-y_g3)
+spur.Spur(ctx).Gear(x_g3,y_g3,rp_g3,n_g3, pa, "red")
+ctx.restore()
+
+ctx.save()
+# translate to the origin of second gear
+ctx.translate(x_g4,y_g4)
+# rotate to engage
+ctx.rotate(th4)
+# put it back
+ctx.translate(-x_g4,-y_g4)
+spur.Spur(ctx).Gear(x_g4,y_g4,rp_g4,n_g4, pa, "purple")
+ctx.restore()
+
+
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="2800" height="1200"&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+    return outString
+
+
+</t>
 <t tx="2014fall.20141212095015.1774"></t>
 <t tx="2014fall.20141212095015.1775"># coding=utf-8
 # 上面的程式內容編碼必須在程式的第一或者第二行才會有作用
@@ -131,7 +1540,13 @@ application_conf = {'/static':{
     
 root = Midterm()
 root.download = Download()
-#root.gear = gear.Gear()
+root.man = man.MAN()
+root.fingear = fingear.gear()
+root.gear = gear.Gear()
+root.manstep = manstep.MANSTEP()
+cherrypy.server.socket_port = 8091
+cherrypy.server.socket_host = '127.0.0.1'
+root.gear = gear.Gear()
 
 if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
     # 表示在 OpenSfhit 執行
@@ -146,6 +1561,10 @@ import os
 # 導入 random 模組
 import random
 import math
+import man
+import gear
+import fingear
+import manstep
 from cherrypy.lib.static import serve_file
 # 導入 gear 模組
 #import gear
@@ -279,6 +1698,688 @@ QLineEdit#editorLabel {
 <t tx="2014fall.20141212095015.1786">horizontal: body pane to the left
 vertical: body pane on the botton</t>
 <t tx="2015.20150330144929.1714"></t>
+<t tx="2015.20150623005547.1"></t>
+<t tx="2015.20150623005547.10">@cherrypy.expose
+def download_list(self, item_per_page=5, page=1, keyword=None, *args, **kwargs):
+    files = os.listdir(download_root_dir+"downloads/")
+    total_rows = len(files)
+    totalpage = math.ceil(total_rows/int(item_per_page))
+    starti = int(item_per_page) * (int(page) - 1) + 1
+    endi = starti + int(item_per_page) - 1
+    outstring = "&lt;form method='post' action='delete_file'&gt;"
+    notlast = False
+    if total_rows &gt; 0:
+        outstring += "&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+            if index&gt;= 0 and index&lt; totalpage:
+                page_now = index + 1 
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+            outstring += downloadlist_access_list(files, starti, endi)+"&lt;br /&gt;"
+        else:
+            outstring += "&lt;br /&gt;&lt;br /&gt;"
+            outstring += downloadlist_access_list(files, starti, total_rows)+"&lt;br /&gt;"
+        
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+        #for ($j=$page-$range;$j&lt;$page+$range;$j++)
+            if index &gt;=0 and index &lt; totalpage:
+                page_now = index + 1
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;"
+    else:
+        outstring += "no data!"
+    outstring += "&lt;br /&gt;&lt;br /&gt;&lt;input type='submit' value='delete'&gt;&lt;input type='reset' value='reset'&gt;&lt;/form&gt;"
+    outstring += '&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;'
+    return "&lt;div class='container'&gt;&lt;nav&gt;"+ \
+        "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Download List&lt;/h1&gt;"+outstring+"&lt;br/&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;"
+
+
+</t>
+<t tx="2015.20150623005547.2">(uncached) 2014fall.20141212095015.1776
+Diff...
+  import cherrypy
+  # 導入 Python 內建的 os 模組, 因為 os 模組為 Python 內建, 所以無需透過 setup.py 安裝
+  import os
+  # 導入 random 模組
+  import random
+  import math
+  import man
+- import gear
+  import fingear
+  import manstep
+  from cherrypy.lib.static import serve_file
+  # 導入 gear 模組
+  #import gear
+  
+  ################# (2) 廣域變數設定區
+  # 確定程式檔案所在目錄, 在 Windows 下有最後的反斜線
+  _curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+  # 設定在雲端與近端的資料儲存目錄
+  if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+      # 表示程式在雲端執行
+      download_root_dir = os.environ['OPENSHIFT_DATA_DIR']
+      data_dir = os.environ['OPENSHIFT_DATA_DIR']
+  else:
+      # 表示程式在近端執行
+      download_root_dir = _curdir + "/local_data/"
+      data_dir = _curdir + "/local_data/"
+  
+  
+</t>
+<t tx="2015.20150623005547.3">import cherrypy
+# 導入 Python 內建的 os 模組, 因為 os 模組為 Python 內建, 所以無需透過 setup.py 安裝
+import os
+# 導入 random 模組
+import random
+import math
+import man
+import fingear
+import manstep
+from cherrypy.lib.static import serve_file
+# 導入 gear 模組
+#import gear
+
+################# (2) 廣域變數設定區
+# 確定程式檔案所在目錄, 在 Windows 下有最後的反斜線
+_curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+# 設定在雲端與近端的資料儲存目錄
+if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+    # 表示程式在雲端執行
+    download_root_dir = os.environ['OPENSHIFT_DATA_DIR']
+    data_dir = os.environ['OPENSHIFT_DATA_DIR']
+else:
+    # 表示程式在近端執行
+    download_root_dir = _curdir + "/local_data/"
+    data_dir = _curdir + "/local_data/"
+
+
+</t>
+<t tx="2015.20150623005547.4">import cherrypy
+# 導入 Python 內建的 os 模組, 因為 os 模組為 Python 內建, 所以無需透過 setup.py 安裝
+import os
+# 導入 random 模組
+import random
+import math
+import man
+import gear
+import fingear
+import manstep
+from cherrypy.lib.static import serve_file
+# 導入 gear 模組
+#import gear
+
+################# (2) 廣域變數設定區
+# 確定程式檔案所在目錄, 在 Windows 下有最後的反斜線
+_curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+# 設定在雲端與近端的資料儲存目錄
+if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+    # 表示程式在雲端執行
+    download_root_dir = os.environ['OPENSHIFT_DATA_DIR']
+    data_dir = os.environ['OPENSHIFT_DATA_DIR']
+else:
+    # 表示程式在近端執行
+    download_root_dir = _curdir + "/local_data/"
+    data_dir = _curdir + "/local_data/"
+
+
+</t>
+<t tx="2015.20150623005547.5">(uncached) amd.20150503183542.1
+Diff...
++ @cherrypy.expose
+- 
+- 
+  # N 為齒數, M 為模數, P 為壓力角
+  def spur(self, N=20, M=5, P=15):
+      outstring = '''
+  &lt;!DOCTYPE html&gt; 
+  &lt;html&gt;
+  &lt;head&gt;
+  &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+  &lt;!-- 載入 brython.js --&gt;
+  &lt;script type="text/javascript" src="/static/Brython3.1.1-20150328-091302/brython.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;!-- 啟動 brython() --&gt;
+  &lt;body onload="brython()"&gt;
+      
+  &lt;form method=POST action=spuraction&gt;
+  齒數:&lt;input type=text name=N value='''+str(N)+'''&gt;&lt;br /&gt;
+  模數:&lt;input type=text name=M value = '''+str(M)+'''&gt;&lt;br /&gt;
+  壓力角:&lt;input type=text name=P value = '''+str(P)+'''&gt;&lt;br /&gt;
+  &lt;input type=submit value=send&gt;
+  &lt;/form&gt;
+  &lt;br /&gt;&lt;a href="index"&gt;index&lt;/a&gt;&lt;br /&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+  '''
+  
+      return outstring
+</t>
+<t tx="2015.20150623005547.6">@cherrypy.expose
+# N 為齒數, M 為模數, P 為壓力角
+def spur(self, N=20, M=5, P=15):
+    outstring = '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.1-20150328-091302/brython.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+    
+&lt;form method=POST action=spuraction&gt;
+齒數:&lt;input type=text name=N value='''+str(N)+'''&gt;&lt;br /&gt;
+模數:&lt;input type=text name=M value = '''+str(M)+'''&gt;&lt;br /&gt;
+壓力角:&lt;input type=text name=P value = '''+str(P)+'''&gt;&lt;br /&gt;
+&lt;input type=submit value=send&gt;
+&lt;/form&gt;
+&lt;br /&gt;&lt;a href="index"&gt;index&lt;/a&gt;&lt;br /&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+
+    return outstring
+</t>
+<t tx="2015.20150623005547.7">
+
+# N 為齒數, M 為模數, P 為壓力角
+def spur(self, N=20, M=5, P=15):
+    outstring = '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.1-20150328-091302/brython.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+    
+&lt;form method=POST action=spuraction&gt;
+齒數:&lt;input type=text name=N value='''+str(N)+'''&gt;&lt;br /&gt;
+模數:&lt;input type=text name=M value = '''+str(M)+'''&gt;&lt;br /&gt;
+壓力角:&lt;input type=text name=P value = '''+str(P)+'''&gt;&lt;br /&gt;
+&lt;input type=submit value=send&gt;
+&lt;/form&gt;
+&lt;br /&gt;&lt;a href="index"&gt;index&lt;/a&gt;&lt;br /&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+
+    return outstring
+</t>
+<t tx="2015.20150623005547.8">(uncached) office.20150504185417.1
+Diff...
+  @cherrypy.expose
+  def download_list(self, item_per_page=5, page=1, keyword=None, *args, **kwargs):
+      files = os.listdir(download_root_dir+"downloads/")
+      total_rows = len(files)
+      totalpage = math.ceil(total_rows/int(item_per_page))
+      starti = int(item_per_page) * (int(page) - 1) + 1
+      endi = starti + int(item_per_page) - 1
+      outstring = "&lt;form method='post' action='delete_file'&gt;"
+      notlast = False
+      if total_rows &gt; 0:
+          outstring += "&lt;br /&gt;"
+          if (int(page) * int(item_per_page)) &lt; total_rows:
+              notlast = True
+          if int(page) &gt; 1:
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+              page_num = int(page) - 1
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Previous&lt;/a&gt; "
+          span = 10
+          for index in range(int(page)-span, int(page)+span):
+              if index&gt;= 0 and index&lt; totalpage:
+                  page_now = index + 1 
+                  if page_now == int(page):
+                      outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                  else:
+                      outstring += "&lt;a href='"
+                      outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                      outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+  
+          if notlast == True:
+              nextpage = int(page) + 1
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Next&lt;/a&gt;"
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&gt;&gt;&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;"
+          if (int(page) * int(item_per_page)) &lt; total_rows:
+              notlast = True
+              outstring += downloadlist_access_list(files, starti, endi)+"&lt;br /&gt;"
+          else:
+              outstring += "&lt;br /&gt;&lt;br /&gt;"
+              outstring += downloadlist_access_list(files, starti, total_rows)+"&lt;br /&gt;"
+          
+          if int(page) &gt; 1:
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+              page_num = int(page) - 1
+              outstring += "&lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Previous&lt;/a&gt; "
+          span = 10
+          for index in range(int(page)-span, int(page)+span):
+          #for ($j=$page-$range;$j&lt;$page+$range;$j++)
+              if index &gt;=0 and index &lt; totalpage:
+                  page_now = index + 1
+                  if page_now == int(page):
+                      outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                  else:
+                      outstring += "&lt;a href='"
+                      outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                      outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+          if notlast == True:
+              nextpage = int(page) + 1
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;Next&lt;/a&gt;"
+              outstring += " &lt;a href='"
+              outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+              outstring += "'&gt;&gt;&gt;&lt;/a&gt;"
+      else:
+          outstring += "no data!"
+      outstring += "&lt;br /&gt;&lt;br /&gt;&lt;input type='submit' value='delete'&gt;&lt;input type='reset' value='reset'&gt;&lt;/form&gt;"
+      outstring += '&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;'
+      return "&lt;div class='container'&gt;&lt;nav&gt;"+ \
+          "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Download List&lt;/h1&gt;"+outstring+"&lt;br/&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;"
+- 
+- 
+</t>
+<t tx="2015.20150623005547.9">@cherrypy.expose
+def download_list(self, item_per_page=5, page=1, keyword=None, *args, **kwargs):
+    files = os.listdir(download_root_dir+"downloads/")
+    total_rows = len(files)
+    totalpage = math.ceil(total_rows/int(item_per_page))
+    starti = int(item_per_page) * (int(page) - 1) + 1
+    endi = starti + int(item_per_page) - 1
+    outstring = "&lt;form method='post' action='delete_file'&gt;"
+    notlast = False
+    if total_rows &gt; 0:
+        outstring += "&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+            if index&gt;= 0 and index&lt; totalpage:
+                page_now = index + 1 
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;"
+        if (int(page) * int(item_per_page)) &lt; total_rows:
+            notlast = True
+            outstring += downloadlist_access_list(files, starti, endi)+"&lt;br /&gt;"
+        else:
+            outstring += "&lt;br /&gt;&lt;br /&gt;"
+            outstring += downloadlist_access_list(files, starti, total_rows)+"&lt;br /&gt;"
+        
+        if int(page) &gt; 1:
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page=1&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&lt;&lt;&lt;/a&gt; "
+            page_num = int(page) - 1
+            outstring += "&lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(page_num)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Previous&lt;/a&gt; "
+        span = 10
+        for index in range(int(page)-span, int(page)+span):
+        #for ($j=$page-$range;$j&lt;$page+$range;$j++)
+            if index &gt;=0 and index &lt; totalpage:
+                page_now = index + 1
+                if page_now == int(page):
+                    outstring += "&lt;font size='+1' color='red'&gt;"+str(page)+" &lt;/font&gt;"
+                else:
+                    outstring += "&lt;a href='"
+                    outstring += "download_list?&amp;amp;page="+str(page_now)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+                    outstring += "'&gt;"+str(page_now)+"&lt;/a&gt; "
+        if notlast == True:
+            nextpage = int(page) + 1
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(nextpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;Next&lt;/a&gt;"
+            outstring += " &lt;a href='"
+            outstring += "download_list?&amp;amp;page="+str(totalpage)+"&amp;amp;item_per_page="+str(item_per_page)+"&amp;amp;keyword="+str(cherrypy.session.get('download_keyword'))
+            outstring += "'&gt;&gt;&gt;&lt;/a&gt;"
+    else:
+        outstring += "no data!"
+    outstring += "&lt;br /&gt;&lt;br /&gt;&lt;input type='submit' value='delete'&gt;&lt;input type='reset' value='reset'&gt;&lt;/form&gt;"
+    outstring += '&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;'
+    return "&lt;div class='container'&gt;&lt;nav&gt;"+ \
+        "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Download List&lt;/h1&gt;"+outstring+"&lt;br/&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;"
+</t>
+<t tx="2015.20150623005640.1">@language python
+@tabwidth -4
+@others
+</t>
+<t tx="2015.20150623005701.1">import cherrypy
+import random
+
+</t>
+<t tx="2015.20150623005701.2">class gear(object):
+    @cherrypy.expose
+    @others
+</t>
+<t tx="2015.20150623005701.3"># N 為齒數, M 為模數, P 為壓力角
+def index(self, m=None, ng1=None, ng2=None, inp2=None):
+    # 將標準答案存入 answer session 對應區
+    theanswer = random.randint(1, 100)
+    thecount = 0
+    # 將答案與計算次數變數存進 session 對應變數
+    cherrypy.session['answer'] = theanswer
+    cherrypy.session['count'] = thecount
+    # 印出讓使用者輸入的超文件表單
+    outstring = self.menuLink()
+    outstring += '''&lt;br /&gt;'''
+    outstring += '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;title&gt;
+期末齒輪 -單人
+&lt;/title&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.0-20150301-090019/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/Cango2D.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/gearUtils-04.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+
+
+&lt;form method=\"post\" action=\"dogear\"&gt;
+    &lt;legend&gt;輸入條件&lt;/legend&gt;
+
+    齒數1:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng1\" value="10"&gt;&lt;br /&gt;
+    齒數2:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng2\" value="10"&gt;&lt;br /&gt;
+    模數:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"m\" value="10"&gt;&lt;br /&gt;
+    壓力角(&gt;33時會有錯誤):&lt;br /&gt;
+    &lt;input type=\"text\" name=\"inp2\" value="30"&gt;&lt;br /&gt;
+    &lt;input type=\"submit\" value=\"畫圖!!\"&gt;
+    &lt;input type=\"reset\" value=\"重填\"&gt;
+&lt;/form&gt;
+&lt;hr&gt;
+&lt;!-- 以下在網頁內嵌 Brython 程式 --&gt;
+&lt;script type="text/python"&gt;
+from browser import document, alert
+
+def echo(ev):
+    alert(document["zone"].value)
+
+# 將文件中名稱為 mybutton 的物件, 透過 click 事件與 echo 函式 bind 在一起
+document['mybutton'].bind('click',echo)
+&lt;/script&gt;
+
+&lt;!-- 以下為 canvas 畫圖程式 --&gt;
+&lt;script type="text/python"&gt;
+# 從 browser 導入 document
+from browser import document
+from math import *
+
+# 準備在 id="plotarea" 的 canvas 中繪圖
+canvas = document["plotarea"]
+ctx = canvas.getContext("2d")
+
+def create_line(x1, y1, x2, y2, width=3, fill="red"):
+ctx.beginPath()
+ctx.lineWidth = width
+ctx.moveTo(x1, y1)
+ctx.lineTo(x2, y2)
+ctx.strokeStyle = fill
+ctx.stroke()
+
+# 導入數學函式後, 圓周率為 pi
+# deg 為角度轉為徑度的轉換因子
+deg = pi/180.
+
+# 以下分別為正齒輪繪圖與主 tkinter 畫布繪圖
+
+# 定義一個繪正齒輪的繪圖函式
+# midx 為齒輪圓心 x 座標
+# midy 為齒輪圓心 y 座標
+# rp 為節圓半徑, n 為齒數
+def gear(midx, midy, rp, n, 顏色):
+# 將角度轉換因子設為全域變數
+global deg
+# 齒輪漸開線分成 15 線段繪製
+imax = 15
+# 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+create_line(midx, midy, midx, midy-rp)
+# 畫出 rp 圓, 畫圓函式尚未定義
+#create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+# a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+# 模數也就是齒冠大小
+a=2*rp/n
+# d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+d=2.5*rp/n
+# ra 為齒輪的外圍半徑
+ra=rp+a
+print("ra:", ra)
+# 畫出 ra 圓, 畫圓函式尚未定義
+#create_oval(midx-ra, midy-ra, midx+ra, midy+ra, width=1)
+# rb 則為齒輪的基圓半徑
+# 基圓為漸開線長齒之基準圓
+rb=rp*cos(20*deg)
+print("rp:", rp)
+print("rb:", rb)
+# 畫出 rb 圓 (基圓), 畫圓函式尚未定義
+#create_oval(midx-rb, midy-rb, midx+rb, midy+rb, width=1)
+# rd 為齒根圓半徑
+rd=rp-d
+# 當 rd 大於 rb 時
+print("rd:", rd)
+# 畫出 rd 圓 (齒根圓), 畫圓函式尚未定義
+#create_oval(midx-rd, midy-rd, midx+rd, midy+rd, width=1)
+# dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+# 將圓弧分成 imax 段來繪製漸開線
+dr=(ra-rb)/imax
+# tan(20*deg)-20*deg 為漸開線函數
+sigma=pi/(2*n)+tan(20*deg)-20*deg
+for j in range(n):
+    ang=-2.*j*pi/n+sigma
+    ang2=2.*j*pi/n+sigma
+    lxd=midx+rd*sin(ang2-2.*pi/n)
+    lyd=midy-rd*cos(ang2-2.*pi/n)
+    #for(i=0;i&lt;=imax;i++):
+    for i in range(imax+1):
+        r=rb+i*dr
+        theta=sqrt((r*r)/(rb*rb)-1.)
+        alpha=theta-atan(theta)
+        xpt=r*sin(alpha-ang)
+        ypt=r*cos(alpha-ang)
+        xd=rd*sin(-ang)
+        yd=rd*cos(-ang)
+        # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+        if(i==0):
+            last_x = midx+xd
+            last_y = midy-yd
+        # 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+        create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+        # 最後一點, 則為齒頂圓
+        if(i==imax):
+            lfx=midx+xpt
+            lfy=midy-ypt
+        last_x = midx+xpt
+        last_y = midy-ypt
+    # the line from last end of dedendum point to the recent
+    # end of dedendum point
+    # lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+    # 下列為齒根圓上用來近似圓弧的直線
+    create_line((lxd),(lyd),(midx+xd),(midy-yd),fill=顏色)
+    #for(i=0;i&lt;=imax;i++):
+    for i in range(imax+1):
+        r=rb+i*dr
+        theta=sqrt((r*r)/(rb*rb)-1.)
+        alpha=theta-atan(theta)
+        xpt=r*sin(ang2-alpha)
+        ypt=r*cos(ang2-alpha)
+        xd=rd*sin(ang2)
+        yd=rd*cos(ang2)
+        # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+        if(i==0):
+            last_x = midx+xd
+            last_y = midy-yd
+        # 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+        create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=顏色)
+        # 最後一點, 則為齒頂圓
+        if(i==imax):
+            rfx=midx+xpt
+            rfy=midy-ypt
+        last_x = midx+xpt
+        last_y = midy-ypt
+    # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+    # 下列為齒頂圓上用來近似圓弧的直線
+    create_line(lfx,lfy,rfx,rfy,fill=顏色)
+
+gear(400,400,300,41,"blue")
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="800" height="800"&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+
+    return outstring
+@cherrypy.expose
+</t>
+<t tx="2015.20150623005701.6">@cherrypy.expose
+def menuLink(self):
+    return '''
+    &lt;br /&gt;
+    &lt;a href=\"index\"&gt;期末齒輪 -單人(首頁)&lt;/a&gt;
+    &lt;a href=\"index2"&gt;期末齒輪 -協同&lt;/a&gt;
+    &lt;br /&gt;
+    '''
+</t>
+<t tx="2015.20150623010323.1"># N 為齒數, M 為模數, P 為壓力角
+def index2(self, m=None, ng1=None, ng2=None, ng3=None, ng4=None, inp2=None):
+    # 將標準答案存入 answer session 對應區
+    theanswer = random.randint(1, 100)
+    thecount = 0
+    # 將答案與計算次數變數存進 session 對應變數
+    cherrypy.session['answer'] = theanswer
+    cherrypy.session['count'] = thecount
+    # 印出讓使用者輸入的超文件表單
+    outstring = self.menuLink()
+    outstring += '''&lt;br /&gt;'''
+    outstring += '''
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+&lt;title&gt;
+期末齒輪 -協同
+&lt;/title&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;!-- 載入 brython.js --&gt;
+&lt;script type="text/javascript" src="/static/Brython3.1.0-20150301-090019/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/Cango2D.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/static/gearUtils-04.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;body onload="brython()"&gt;
+
+&lt;form method=\"post\" action=\"dogears\"&gt;
+    &lt;legend&gt;輸入條件&lt;/legend&gt;
+
+    齒數1:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng1\" value="10"&gt;&lt;br /&gt;
+    齒數2:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng2\" value="10"&gt;&lt;br /&gt;
+    齒數3:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng3\" value="10"&gt;&lt;br /&gt;
+    齒數4:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"ng4\" value="10"&gt;&lt;br /&gt;
+    模數:&lt;br /&gt;
+    &lt;input type=\"text\" name=\"m\" value="10"&gt;&lt;br /&gt;
+    壓力角(&gt;33時會有錯誤):&lt;br /&gt;
+    &lt;input type=\"text\" name=\"inp2\" value="30"&gt;&lt;br /&gt;
+    &lt;input type=\"submit\" value=\"畫圖!!\"&gt;
+    &lt;input type=\"reset\" value=\"重填\"&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+'''
+
+    return outstring
+
+</t>
 <t tx="amd.20150503172957.1"></t>
 <t tx="amd.20150503173008.1"># coding=utf-8
 # 上面的程式內容編碼必須在程式的第一或者第二行才會有作用
@@ -1759,10 +3860,14 @@ def index(self):
     &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
     &lt;/head&gt;
     &lt;body&gt;
-    &lt;a href="spur"&gt;spur&lt;/a&gt;&lt;br /&gt;
-    &lt;a href="drawspur"&gt;drawspur&lt;/a&gt;&lt;br /&gt;
-    &lt;a href="fileuploadform"&gt;上傳檔案&lt;/a&gt;&lt;br /&gt;
-    &lt;a href="download_list"&gt;列出上傳檔案&lt;/a&gt;&lt;br /&gt;
+    40223150起始頁面&lt;br /&gt;
+    &lt;a href="spur"&gt;齒輪參數輸入&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="drawspur"&gt;2D齒輪繪製&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="fileuploadform"&gt;檔案上傳頁面&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="download_list"&gt;已上傳檔案&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="man"&gt;樂高機器人自動組立&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="manstep"&gt;樂高機器人單步組立&lt;/a&gt;&lt;br /&gt;
+    &lt;a href="fingear"&gt;期末齒輪&lt;/a&gt;&lt;br /&gt;
     &lt;/body&gt;
     &lt;/html&gt;
     '''
@@ -1807,7 +3912,8 @@ OpenShift 網站:
 
 http://2015cdmidterm-scrum2mdetw.rhcloud.com/</t>
 <t tx="amd.20150503183108.1"></t>
-<t tx="amd.20150503183542.1">@cherrypy.expose
+<t tx="amd.20150503183542.1">
+
 # N 為齒數, M 為模數, P 為壓力角
 def spur(self, N=20, M=5, P=15):
     outstring = '''
@@ -1832,7 +3938,8 @@ def spur(self, N=20, M=5, P=15):
 &lt;/html&gt;
 '''
 
-    return outstring</t>
+    return outstring
+</t>
 <t tx="amd.20150503183546.1">@cherrypy.expose
 # N 為齒數, M 為模數, P 為壓力角
 def spuraction(self, N=20, M=5, P=15):
@@ -1855,7 +3962,8 @@ def spuraction(self, N=20, M=5, P=15):
     
     return output
     
-    </t>
+    
+</t>
 <t tx="amd.20150503185058.1">@cherrypy.expose
 # N 為齒數, M 為模數, P 為壓力角
 def drawspur(self, N=20, M=5, P=15):
@@ -1885,7 +3993,8 @@ brython();
 &lt;/html&gt;
 '''
 
-    return outstring</t>
+    return outstring
+</t>
 <t tx="amd.20150503185210.1">@cherrypy.expose
 # N 為齒數, M 為模數, P 為壓力角
 def drawspuraction(self, N=20, M=5, P=15):
@@ -1935,7 +4044,8 @@ brython();
 &lt;/html&gt;
 '''
 
-    return outstring</t>
+    return outstring
+</t>
 <t tx="amd.20150503185513.1"></t>
 <t tx="office.20150504093049.1">@cherrypy.expose
 # W 為正方體的邊長
@@ -1957,7 +4067,8 @@ def cube(self, W=10):
 &lt;/html&gt;
 '''
 
-    return outstring</t>
+    return outstring
+</t>
 <t tx="office.20150504093053.1">@cherrypy.expose
 # W 為正方體邊長, 內定值為 10
 def cubeaction(self, W=10):
@@ -2048,7 +4159,8 @@ if (!ret.Status):
 &lt;/script&gt;
 '''
 
-    return outstring</t>
+    return outstring
+</t>
 <t tx="office.20150504100507.1"></t>
 <t tx="office.20150504100745.1"></t>
 <t tx="office.20150504100857.1"></t>
@@ -2107,8 +4219,11 @@ return 'downloads/';
 &lt;div class="prova"&gt;&lt;/div&gt;
 &lt;input type="button" onclick="$('.prova').axuploader('disable')" value="asd" /&gt;
 &lt;input type="button" onclick="$('.prova').axuploader('enable')" value="ok" /&gt;
-&lt;/section&gt;&lt;/body&gt;&lt;/html&gt;
-'''</t>
+&lt;/section&gt;
+&lt;br /&gt;&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;
+&lt;/body&gt;&lt;/html&gt;
+'''
+</t>
 <t tx="office.20150504183312.1">@cherrypy.expose
 def fileaxupload(self, *args, **kwargs):
     filename = kwargs["ax-file-name"]
@@ -2198,9 +4313,11 @@ def download_list(self, item_per_page=5, page=1, keyword=None, *args, **kwargs):
     else:
         outstring += "no data!"
     outstring += "&lt;br /&gt;&lt;br /&gt;&lt;input type='submit' value='delete'&gt;&lt;input type='reset' value='reset'&gt;&lt;/form&gt;"
-
+    outstring += '&lt;a href="index"&gt;回首頁&lt;/a&gt;&lt;br /&gt;'
     return "&lt;div class='container'&gt;&lt;nav&gt;"+ \
         "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Download List&lt;/h1&gt;"+outstring+"&lt;br/&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;"
+
+
 </t>
 <t tx="office.20150504185643.1">def downloadlist_access_list(files, starti, endi):
     # different extension files, associated links were provided
